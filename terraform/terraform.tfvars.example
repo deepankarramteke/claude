@@ -1,0 +1,16 @@
+aws_region   = "us-east-1"
+project_name = "jira-automation"
+environment  = "dev"
+
+# Secrets Manager secret name (must exist before running terraform apply)
+jira_secret_name = "prod/jira/credentials"
+
+# Jira project key (visible in the URL: https://your-domain.atlassian.net/jira/software/projects/OPS)
+jira_project_key = "OPS"
+jira_issue_type  = "Bug"
+
+# --- Option A: schedule-based trigger (default) ---
+eventbridge_schedule_expression = "rate(1 day)"
+
+# --- Option B: event-driven trigger (comment out schedule above and uncomment below) ---
+# eventbridge_event_pattern = "{\"source\":[\"aws.cloudwatch\"],\"detail-type\":[\"CloudWatch Alarm State Change\"],\"detail\":{\"state\":{\"value\":[\"ALARM\"]}}}"
